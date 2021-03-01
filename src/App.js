@@ -9,6 +9,9 @@ class App extends Component {
       beers: null,
     };
   }
+
+  // Promise chain: If the component mounts console log "mounted" and then fetch
+  // data from the API in json
   componentDidMount() {
     console.log("mounted");
     fetch("https://api.punkapi.com/v2/beers")
@@ -17,19 +20,20 @@ class App extends Component {
         this.setState({ beers: data });
       });
   }
-
+  // Rendering a list, mapping through the beer API and returning names, images
+  // etc of beers. <Beer/> will render the bill component within the DOM.
   render() {
     return (
       <div className="App">
-        <ul>
+        <ul className="list">
           {" "}
           {this.state.beers &&
             this.state.beers.map((beer) => {
               return (
                 <Beer
                   name={beer.name}
-                  image={beer.image_url}
                   tagline={beer.tagline}
+                  image={beer.image_url}
                   tips={beer.brewers_tips}
                 />
               );
